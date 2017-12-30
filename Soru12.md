@@ -14,31 +14,8 @@ public class Soru12 {
 		System.out.println("3. Sayıyı giriniz: ");
 		c=scan.nextInt();
 		
-		if((a<b) && (a<c))
-		{
-			System.out.println(a+" Sayısı en küçüktür.");
-		}
-		else if((b<a) && (b<c))
-		{
-			System.out.println(b+" Sayısı en küçüktür.");
-		}
-		else if ((c<a) && (c<b))
-		{
-			System.out.println(c+" Sayısı en küçüktür.");
-		}
 		
-		if ((a>b) && (a<c) || (a>c) && (a<b))
-		{
-			System.out.println(a+" Sayısı ortancadır.");
-		}
-		else if ((b>a) && (b<c) || (b>c) && (b<a))
-		{
-			System.out.println(b+" Sayısı ortancadır.");
-		}
-		else if ((c>a) && (c<b) || (c>b) && (c<a))
-		{
-			System.out.println(c+" Sayısı ortancadır.");
-		}
+		
 		if((a>b) && (a>c))
 		{
 			System.out.println(a+" Sayısı en Büyüktür.");
