@@ -1,0 +1,162 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
+
+
+public class oyun extends JFrame {
+
+
+private static final long serialVersionUID = 1L;
+public static Object prompt1;
+private JTextField userInput;
+private JLabel comment = new JLabel(" ");
+private JLabel comment2 = new JLabel(" ");
+private int randomNumber;
+private int hak = 0;
+
+
+public oyun() {
+    super("Sayı Tahmin");
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+    
+    setLayout(new FlowLayout());
+    Container c = getContentPane();
+
+    
+    JButton ButonDene = new JButton("Dene");
+    JButton ButonYeni = new JButton("Yeni Oyun");
+    JButton ButonCikis = new JButton("Çıkış");
+    JLabel prompt1 = new JLabel("1-100 arası sayı tahmini");
+    JLabel prompt2 = new JLabel();
+    JLabel prompt3 = new JLabel("Sayı giriniz: ");
+    comment = new JLabel(" ");
+    comment2 = new JLabel(" ");
+    userInput = new JTextField(5);
+
+    
+    c.add(prompt1);
+    c.add(prompt2);
+    c.add(prompt3);
+    c.add(userInput);
+    c.add(ButonDene);
+    c.add(ButonYeni);
+    c.add(ButonCikis);
+    c.add(comment);
+    c.add(comment2);
+
+    
+    ButonDene.setMnemonic('T');
+    ButonYeni.setMnemonic('N');
+    ButonCikis.setMnemonic('Q');
+
+    
+    setSize(300, 200);
+    setLocationRelativeTo(null);
+    setVisible(true);
+    setResizable(false);
+
+    initializeNumber();
+
+    
+    GuessButtonHandler ghandler = new GuessButtonHandler(); 
+                                                            
+    ButonDene.addActionListener(ghandler); 
+
+    NewButtonHandler nhandler = new NewButtonHandler();
+    ButonYeni.addActionListener(nhandler);
+
+    QuitButtonHandler qhandler = new QuitButtonHandler();
+    ButonCikis.addActionListener(qhandler);
+} 
+
+
+private void initializeNumber() {
+    randomNumber = new Random().nextInt(100) + 1;
+}
+
+
+private class GuessButtonHandler implements ActionListener {
+    public void actionPerformed(ActionEvent e) {
+
+        
+        int KullaniciGirisi;
+        int diff;
+        int fark;
+
+        
+        try {
+        	KullaniciGirisi = Integer.parseInt(userInput.getText().trim());
+            hak++;
+
+            if (KullaniciGirisi == randomNumber) {
+                JOptionPane.showMessageDialog(null, "Doğru bildin "
+                        + hak + " denemede", "Rastgele Sayı: "
+                        + randomNumber, JOptionPane.INFORMATION_MESSAGE);
+                initializeNumber();
+                return;
+            }
+            if (KullaniciGirisi > randomNumber) {
+                comment2
+                        .setText("Girdiğin sayı yüksek biraz daha düşük dene.");
+                comment2.setForeground(Color.WHITE);
+                diff = KullaniciGirisi - randomNumber;
+                fark = Math.abs(diff);
+            } else {
+                comment2
+                        .setText("Girdiğin sayı düşük yüksek dene.");
+                comment2.setForeground(Color.WHITE);
+                diff = randomNumber - KullaniciGirisi;
+                fark = Math.abs(diff);
+            }
+
+            if (fark >= 30) {
+                comment.setText("Sayıya uzaksın.");
+                comment.setForeground(Color.WHITE);
+                oyun.this.setBackgroundColor(Color.BLUE);
+            }
+
+            if (fark <= 15) {
+                comment.setText("Sayıya yaklaştın.");
+                comment.setForeground(Color.WHITE);
+                oyun.this.setBackgroundColor(Color.RED);
+            }
+        } catch (NumberFormatException ex) {
+            comment.setText("Enter a VALID number!");
+        }
+        if(hak==10)
+        {
+        	JOptionPane.showMessageDialog(null,10);
+        }
+    }
+} 
+
+
+private class NewButtonHandler implements ActionListener {
+    public void actionPerformed(ActionEvent e) {
+        oyun app = new oyun();
+
+    }
+} 
+
+
+private class QuitButtonHandler implements ActionListener {
+    public void actionPerformed(ActionEvent e) {
+        System.exit(0);
+    }
+} 
+
+
+private void setBackgroundColor(Color RED) {
+    getContentPane().setBackground(RED);
+}
+
+
+public static void main(String args[]) {
+    
+    oyun app = new oyun();
+
+}
+}
